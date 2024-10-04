@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto-fill and Submit Google Form</title>
+</head>
+<body>
+    <form id="autoForm" action="https://docs.google.com/forms/d/e/1FAIpQLSeM4Hiv2yceJXvHq-6X5ayH6twEsxj1SqzHwR8P3G9VNKUo2A/formResponse" method="post">
+        <input type="text" name="entry.1234567890" placeholder="Field 1">
+        <input type="text" name="entry.0987654321" placeholder="Field 2">
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('autoForm');
+            const field1 = document.querySelector('input[name="entry.1234567890"]');
+            const field2 = document.querySelector('input[name="entry.0987654321"]');
+
+            function fillAndSubmitForm() {
+                field1.value = 'ข้อมูลตัวอย่าง 1';
+                field2.value = 'ข้อมูลตัวอย่าง 2';
+                form.submit();
+            }
+
+            let count = 0;
+            const totalSubmissions = 62;
+            
+            function submitMultipleTimes() {
+                if (count < totalSubmissions) {
+                    fillAndSubmitForm();
+                    count++;
+                    setTimeout(submitMultipleTimes, 1000); // ตั้งค่าเวลาในการส่งฟอร์มแต่ละครั้ง
+                }
+            }
+
+            submitMultipleTimes();
+        });
+    </script>
+</body>
+</html>
